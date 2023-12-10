@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+
 import './App.css';
 import { useEffect,useState } from 'react';
 import News from './News';
@@ -7,8 +7,10 @@ function App() {
 
 let [articles,setArticles]=useState([]);
 let [category,setCategory]=useState("india")
+let [date,setDate]=useState([]);
+
   useEffect(()=>{
-     fetch(`https://newsapi.org/v2/everything?q=${category}&from=2023-12-09&apiKey=aa5d473d14cf4b59af12f4ef64ec40dd`)
+     fetch(`https://newsapi.org/v2/everything?q=${category}&from=${date}&apiKey=aa5d473d14cf4b59af12f4ef64ec40dd`)
      .then((response)=>response.json())
      .then((news)=>{
       setArticles(news.articles);
@@ -16,7 +18,7 @@ let [category,setCategory]=useState("india")
      .catch((err)=>{
       console.log(err);
      })
-  },[category])
+  },[category,date])
   return (
     <div className="App">
       <header className='header'>
@@ -29,6 +31,16 @@ let [category,setCategory]=useState("india")
             setCategory("india");
           }
         }}placeholder='Search News'></input>
+        <input type='text' onChange={(event)=>{
+        if(event.target.value!=="")
+        {
+        setDate(event.target.value);
+        }
+        else
+        {
+        setDate(new Date());
+        }
+      }} placeholder='Enter Date'></input>
         </header>
       <section className='news-articles'>
         {
