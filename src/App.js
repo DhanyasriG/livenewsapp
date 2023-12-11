@@ -7,7 +7,7 @@ function App() {
 
 let [articles,setArticles]=useState([]);
 let [category,setCategory]=useState("india")
-let [date,setDate]=useState([]);
+let [date,setDate]=useState(new Date());
 
   useEffect(()=>{
      fetch(`https://newsapi.org/v2/everything?q=${category}&from=${date}&apiKey=aa5d473d14cf4b59af12f4ef64ec40dd`)
@@ -31,7 +31,7 @@ let [date,setDate]=useState([]);
             setCategory("india");
           }
         }}placeholder='Search News'></input>
-        <input type='text' onChange={(event)=>{
+        <input type='date' onChange={(event)=>{
         if(event.target.value!=="")
         {
         setDate(event.target.value);
